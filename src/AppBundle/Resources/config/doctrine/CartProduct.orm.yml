@@ -1,0 +1,30 @@
+AppBundle\Entity\CartProduct:
+    type: entity
+    table: cart_product
+    repositoryClass: AppBundle\Repository\CartProductRepository
+    id:
+        cart:
+            associationKey: true
+        product:
+            associationKey: true
+
+    fields:
+        quantity:
+            type: integer
+
+    manyToOne:
+        cart:
+            targetEntity: AppBundle\Entity\Cart
+            inversedBy: cartProducts
+            joinColumn:
+                name: cart_id
+                referencedColumnName: id
+
+        product:
+            targetEntity: AppBundle\Entity\Product
+            inversedBy: cartProducts
+            joinColumn:
+                name: product_id
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

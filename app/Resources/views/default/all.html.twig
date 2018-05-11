@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/shopping.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="carouselProducts" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for p in lproducts %}
+            <li data-target="#carouselProductsIndicators"
+                data-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %}></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            {% for p in lproducts %}
+                <div class="carousel-item {% if loop.first %} active {% endif %}">
+                    <img class="d-block img-fluid" src="{{ asset(p.medias.first.location) }}" alt="{{ p.name }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{ p.name }}</h3>
+                        <p>{{ p.description }}</p>
+                        <p>
+                            <a href="{{ path('addToCart') }}?product_id={{ p.id }}&qty=1">
+                                <i class="fas fa-shopping-cart"></i> Add to cart
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselProducts" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselProducts" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+{% endblock %}

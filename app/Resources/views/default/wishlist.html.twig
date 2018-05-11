@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for p in lproducts %}
+        <p>{{ p.name }}</p>
+
+        {% for m in p.medias %}
+            <img src="{{ asset(m.location) }}"/>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

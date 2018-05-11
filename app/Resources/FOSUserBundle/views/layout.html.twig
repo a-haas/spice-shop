@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{{ asset('css/fosuserbundle.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/fosuserbundle.js') }}" ></script>
+</head>
+<body style="background: url({{ asset('medias/bg-login.jpg') }}) fixed;">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="{{ type }}">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

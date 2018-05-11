@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/shopping.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2>Shopping cart</h2>
+        <table class="table shopping-cart">
+        <thead>
+            <tr>
+                <th scope="col">Product image</th>
+                <th scope="col">Product name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total price</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% if cart is not null %}
+                    {% for cp in cart.cartProducts %}
+                    <tr>
+                        <td>
+                            <img src="{{ asset(cp.product.medias.first.location) }}" />
+                        </td>
+                        <td>{{ cp.product.name }}</td>
+                        <td>
+                            <input type="number" value="{{ cp.quantity }}"/>
+                            <a href="{{ path('removeFromCart') }}?product_id={{ cp.product.id }}"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                        <td>{{ cp.product.price }}</td>
+                        <td>{{ cp.quantity * cp.product.price }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <a id="update-cart" class="btn btn-primary" href="#" role="button">Update shopping cart</a>
+    </section>
+
+    <section class="shopping-interested">
+        <h2>You might also be interested in</h2> 
+        <div class="row shopping-interested-list">
+            {% for p in interestedIn %}
+            <div class="col-md-3">
+                <div class="product">
+                    <span class="product-line"><img src="{{ asset(p.medias.first.location) }}" /></span>
+                    <span class="name product-line">{{ p.name }}</span>
+                    <span class="price product-line">{{ p.price }}</span>
+                    <div class="options product-line">
+                            <a href="{{ path('addToCart') }}?product_id={{ p.id }}&qty=1">
+                                <i class="fas fa-shopping-cart"></i> Add to cart
+                            </a>
+                        <span class="button-like"><i class="far fa-heart"></i></span>
+                        <span class="button-like"><i class="fas fa-sync"></i></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

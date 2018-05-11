@@ -1,0 +1,24 @@
+AppBundle\Entity\Cart:
+    type: entity
+    table: cart
+    repositoryClass: AppBundle\Repository\CartRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    oneToOne:
+        user:
+            targetEntity: AppBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+
+    oneToMany:
+        cartProducts:
+            targetEntity: AppBundle\Entity\CartProduct
+            mappedBy: cart
+
+    lifecycleCallbacks: {  }
